@@ -5,12 +5,18 @@ import Dashboards from "./components/Dashboards";
 import CTA from "./components/CTA";
 import Contact from "./components/Contact";
 import HeroScroll from "./components/HeroScroll";
+import FeaturesFlow from "./components/FeaturesFlow";
+import WorkflowSection from "./components/WorkflowSection";
+import PricingSection from "./components/PricingSection";
 
 export default function App() {
   return (
     <div className="font-sans text-gray-900">
       <Hero />
       <Features />
+      <FeaturesFlow />
+      <WorkflowSection />
+      <PricingSection />
       <ProductPreview />
       <HeroScroll />
       <Dashboards />
