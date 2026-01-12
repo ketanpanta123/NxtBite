@@ -19,14 +19,7 @@ export default function Hero() {
           dining experience.
         </p>
 
-        <div className="mt-10 flex justify-center gap-6">
-          <button className="bg-primary text-white px-8 py-4 rounded-full text-lg hover:scale-105 transition">
-            I'm Interested
-          </button>
-          <button className="border border-gray-300 px-8 py-4 rounded-full text-lg hover:bg-gray-100 transition">
-            See How It Works
-          </button>
-        </div>
+       
       </motion.div>
     </section>
   );

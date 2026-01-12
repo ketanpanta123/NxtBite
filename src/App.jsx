@@ -14,8 +14,8 @@ export default function App() {
     <div className="font-sans text-gray-900">
       <Hero />
       <Features />
-      <FeaturesFlow />
-      <WorkflowSection />
+      
+      
       <PricingSection />
       <ProductPreview />
       <HeroScroll />
