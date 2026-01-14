@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export default function ProductPreview() {
   return (
-    <section className="py-24 px-8 bg-white">
+    <section data-theme="light" className="py-24 px-8 bg-white">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -15,27 +15,33 @@ export default function ProductPreview() {
         </motion.h2>
 
         <div className="mt-16 grid md:grid-cols-2 gap-12 items-center">
-          {/* Image */}
-          <div className="relative w-full aspect-video">
+          {/* IMAGE */}
+          <div className="w-full aspect-video rounded-2xl shadow-lg overflow-hidden">
             <motion.img
-              src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5"
-              alt="App preview image"
-              className="absolute inset-0 w-full h-full object-cover rounded-2xl shadow-lg"
+              src="/qr.jpeg"
+              alt="Restaurant"
+              className="w-full h-full object-cover"
               whileHover={{ scale: 1.03 }}
               transition={{ type: "spring", stiffness: 200 }}
             />
           </div>
 
-          {/* Video */}
-          <div className="relative w-full aspect-video">
-            <motion.video
-              src="https://www.w3schools.com/html/mov_bbb.mp4"
+          {/* VIDEO (GUARANTEED TO PLAY) */}
+          <div className="w-full aspect-video rounded-2xl shadow-lg overflow-hidden bg-black">
+            <video
               autoPlay
               loop
               muted
               playsInline
-              className="absolute inset-0 w-full h-full object-cover rounded-2xl shadow-lg"
-            />
+              controls={false}
+              className="w-full h-full object-cover"
+            >
+              <source
+                src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
       </div>

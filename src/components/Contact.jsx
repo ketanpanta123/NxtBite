@@ -62,7 +62,6 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (validate()) {
       setFormData({ name: "", phone: "", email: "", message: "" });
       setErrorField(null);
@@ -72,53 +71,58 @@ export default function Contact() {
   };
 
   const inputClass = (field) =>
-    `w-full border p-4 rounded-lg transition
-     ${
-       errorField === field
-         ? "border-red-500 animate-shake"
-         : "border-gray-300 focus:border-green-600"
-     }`;
+    `w-full border p-4 rounded-lg transition ${
+      errorField === field
+        ? "border-red-500 animate-shake"
+        : "border-gray-300 focus:border-[#0F3D2E]"
+    }`;
 
   return (
     <>
-      <section className="py-24 bg-white px-8">
+      <section data-theme="light" className="py-24 bg-white px-8">
         <div className="max-w-xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-gray-900">
             Contact Us
           </h2>
 
-          <p className="mt-6 text-center text-gray-600">
-            Have a question or need assistance? Fill out the form below and our
-            team will get back to you shortly.
-          </p>
+          <div className="mt-6 flex justify-center">
+            <p className="text-gray-600 text-center lg:whitespace-nowrap inline-block">
+              Have a question or need assistance? Fill out the form below and our
+              team will get back to you shortly.
+            </p>
+          </div>
 
           <form onSubmit={handleSubmit} className="mt-10 grid gap-6">
-            <div className="relative">
-              <input
-                name="name"
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={handleChange}
-                className={inputClass("name")}
-              />
-              {errorField === "name" && (
-                <Tooltip message={errorMessage} />
-              )}
+            {/* NAME + PHONE */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="relative">
+                <input
+                  name="name"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className={inputClass("name")}
+                />
+                {errorField === "name" && (
+                  <Tooltip message={errorMessage} />
+                )}
+              </div>
+
+              <div className="relative">
+                <input
+                  name="phone"
+                  placeholder="Phone Number (+61)"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className={inputClass("phone")}
+                />
+                {errorField === "phone" && (
+                  <Tooltip message={errorMessage} />
+                )}
+              </div>
             </div>
 
-            <div className="relative">
-              <input
-                name="phone"
-                placeholder="Phone Number"
-                value={formData.phone}
-                onChange={handleChange}
-                className={inputClass("phone")}
-              />
-              {errorField === "phone" && (
-                <Tooltip message={errorMessage} />
-              )}
-            </div>
-
+            {/* EMAIL */}
             <div className="relative">
               <input
                 name="email"
@@ -132,6 +136,7 @@ export default function Contact() {
               )}
             </div>
 
+            {/* MESSAGE */}
             <div className="relative">
               <textarea
                 name="message"
@@ -148,7 +153,14 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="bg-green-700 text-white py-4 rounded-lg text-lg hover:bg-green-800 transition"
+              className="text-white py-4 rounded-lg text-lg transition"
+              style={{ backgroundColor: "#0F3D2E" }}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.backgroundColor = "#0C3226")
+              }
+              onMouseOut={(e) =>
+                (e.currentTarget.style.backgroundColor = "#0F3D2E")
+              }
             >
               Send Query
             </button>
@@ -175,28 +187,51 @@ export default function Contact() {
       {/* SUCCESS MODAL */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-xl relative">
+          <div
+            className="rounded-2xl p-8 max-w-sm w-full text-center shadow-xl relative text-white"
+            style={{ backgroundColor: "#0F3D2E" }}
+          >
             <button
               onClick={() => setShowSuccessModal(false)}
-              className="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-xl"
+              className="absolute top-3 right-4 text-white text-2xl hover:opacity-80"
             >
               ×
             </button>
 
-            <div className="text-green-600 text-5xl mb-4">✔</div>
+            <div className="flex justify-center mb-4">
+              <svg
+                width="56"
+                height="56"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
 
-            <h3 className="text-xl font-semibold text-gray-900">
+            <h3 className="text-xl font-semibold">
               Submission Successful
             </h3>
 
-            <p className="mt-2 text-gray-600">
+            <p className="mt-2 text-green-200">
               Your query has been sent successfully. Our team will contact you
               shortly.
             </p>
 
             <button
               onClick={() => setShowSuccessModal(false)}
-              className="mt-6 bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800 transition"
+              className="mt-6 bg-white px-6 py-3 rounded-lg font-semibold transition"
+              style={{ color: "#0F3D2E" }}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.backgroundColor = "#E6F2EE")
+              }
+              onMouseOut={(e) =>
+                (e.currentTarget.style.backgroundColor = "white")
+              }
             >
               Close
             </button>
@@ -211,9 +246,7 @@ export default function Contact() {
 function Tooltip({ message }) {
   return (
     <div className="absolute left-4 top-full mt-2 bg-white text-black px-3 py-2 rounded-md shadow-lg flex items-center gap-2 text-sm border z-10">
-      <span className="bg-orange-500 text-white font-bold px-2 rounded">
-        !
-      </span>
+      <span className="bg-orange-500 text-white font-bold px-2 rounded">!</span>
       {message}
       <div className="absolute left-4 -top-1.5 w-3 h-3 bg-white rotate-45 border-l border-t" />
     </div>

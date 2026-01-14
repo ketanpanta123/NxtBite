@@ -2,7 +2,11 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-white px-8">
+    <section
+  data-theme="light"
+  className="min-h-screen flex items-center justify-center bg-white px-8"
+>
+
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -15,8 +19,7 @@ export default function Hero() {
         </h1>
 
         <p className="mt-6 text-xl text-gray-600">
-          We help people choose dine-in over food ordering by enhancing the
-          dining experience.
+          We upgrade your restraunt's service, experience, and revenue
         </p>
 
        

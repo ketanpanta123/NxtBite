@@ -2,14 +2,12 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const images = [
-  "https://images.unsplash.com/photo-1555396273-367ea4eb4db5",
-  "https://images.unsplash.com/photo-1528605248644-14dd04022da1",
-  "https://images.unsplash.com/photo-1559339352-11d035aa65de",
-  "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-  "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba",
-  "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe",
-  "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0",
-  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
+  "/img1.PNG",
+  "/img2.JPG",
+  "/img3.PNG",
+  "/img4.JPG",
+  "/img5.PNG",
+  "/img6.PNG",
 ];
 
 export default function HeroCarousel() {
@@ -17,13 +15,13 @@ export default function HeroCarousel() {
   const cardRefs = useRef([]);
   const [styles, setStyles] = useState([]);
 
-  // 🔒 INITIAL POSITION (CENTER IMAGE INDEX 4)
+  // 🎯 INITIAL CENTERING
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
     const cardWidth = 340;
-    const overlap = 120;
+    const overlap = 80;
     const effectiveWidth = cardWidth - overlap;
     const initialIndex = 4;
 
@@ -33,7 +31,7 @@ export default function HeroCarousel() {
       cardWidth / 2;
   }, []);
 
-  // 🎯 SCROLL-DRIVEN TRANSFORMS (THIS IS THE KEY)
+  // 🧠 SMOOTH SCROLL TRANSFORMS
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -48,77 +46,88 @@ export default function HeroCarousel() {
           card.offsetLeft + card.offsetWidth / 2;
 
         const distance = cardCenter - center;
+        const abs = Math.abs(distance);
 
         const rotate = Math.max(
-          Math.min(-distance / 25, 15),
-          -15
+          Math.min(-distance / 60, 8),
+          -8
         );
 
-        const scale = Math.max(
-          1 - Math.abs(distance) / 1100,
-          0.75
-        );
-
-        const isCentered = Math.abs(distance) < 40;
+        const scale = Math.max(1 - abs / 1600, 0.85);
+        const isCentered = abs < 90;
 
         return {
           rotate,
           scale,
-          zIndex: isCentered ? 100 : 50,
+          zIndex: isCentered ? 20 : 10,
           boxShadow: isCentered
-            ? "0 35px 90px rgba(0,0,0,0.45)"
-            : "0 15px 40px rgba(0,0,0,0.25)",
+            ? "0 40px 80px rgba(0,0,0,0.35)"
+            : "0 18px 35px rgba(0,0,0,0.2)",
         };
       });
 
       setStyles(nextStyles);
     };
 
-    update(); // initial
+    update();
     el.addEventListener("scroll", update);
     return () => el.removeEventListener("scroll", update);
   }, []);
 
   return (
     <section className="min-h-screen bg-gradient-to-b from-[#0f3d2e] to-[#06281e] text-white overflow-hidden">
-      
       {/* HERO TEXT */}
       <div className="text-center pt-32">
-        <h1 className="text-6xl font-bold">
-          Smart dining, <span className="text-green-400">done right</span>
+        <h1 className="text-6xl font-bold tracking-tight">
+          Smart dining{" "}
+          <span className="text-green-400">done right</span>
         </h1>
-        <p className="mt-6 text-green-100">
-          One digital menu. One shared order. Zero friction.
+        <p className="mt-6 text-lg text-green-100 max-w-xl mx-auto">
+          Digital menu. One shared order. Zero friction.
         </p>
       </div>
 
       {/* CAROUSEL */}
       <div
         ref={containerRef}
-        className="mt-24 flex overflow-x-scroll scrollbar-hide"
+        className="mt-28 flex overflow-x-scroll scrollbar-hide"
+        style={{ perspective: "1200px" }}
       >
-        <div className="w-[40vw] shrink-0" />
+        <div className="w-[45vw] shrink-0" />
 
         {images.map((img, i) => (
           <motion.div
             key={i}
             ref={(el) => (cardRefs.current[i] = el)}
             animate={styles[i]}
-            transition={{ type: "spring", stiffness: 120, damping: 20 }}
-            style={{
-              marginLeft: i === 0 ? 0 : "-120px",
+            transition={{
+              type: "spring",
+              stiffness: 70,
+              damping: 25,
+              mass: 0.8,
             }}
-            className="min-w-[340px] h-[420px] rounded-3xl overflow-hidden bg-white"
+            style={{ marginLeft: i === 0 ? 0 : "-80px" }}
+            className="
+              min-w-[340px]
+              h-[480px]
+              rounded-3xl
+              overflow-hidden
+              bg-white
+              flex
+              items-center
+              justify-center
+            "
           >
+            {/* ✅ FULL IMAGE — NO CROP */}
             <img
               src={img}
-              className="w-full h-full object-cover"
               alt=""
+              className="max-w-full max-h-full object-contain"
             />
           </motion.div>
         ))}
 
-        <div className="w-[40vw] shrink-0" />
+        <div className="w-[45vw] shrink-0" />
       </div>
     </section>
   );
