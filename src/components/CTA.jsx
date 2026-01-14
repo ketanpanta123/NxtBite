@@ -32,19 +32,19 @@ export default function CTA() {
       {/* CTA SECTION */}
       <section
         data-theme="dark"
-        className="py-24 bg-primary text-white text-center px-8"
+        className="py-16 sm:py-20 lg:py-24 bg-primary text-white text-center px-4 sm:px-6 lg:px-8"
       >
-        <h2 className="text-4xl font-bold">
+        <h2 className="text-3xl sm:text-4xl font-bold">
           Let Nxtbite Prove the Impact
         </h2>
 
-        <p className="mt-6 text-lg opacity-90">
+        <p className="mt-4 sm:mt-6 text-base sm:text-lg opacity-90 max-w-xl mx-auto">
           Start with a free pilot. If we don’t add value, you don’t pay.
         </p>
 
         <button
           onClick={() => setOpen(true)}
-          className="mt-10 bg-white text-primary px-10 py-4 rounded-full text-lg font-semibold hover:scale-105 transition"
+          className="mt-8 sm:mt-10 bg-white text-primary px-8 sm:px-10 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:scale-105 transition"
         >
           I'm Interested
         </button>
@@ -52,24 +52,24 @@ export default function CTA() {
 
       {/* MODAL */}
       {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-xl relative text-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="bg-white rounded-2xl p-6 sm:p-8 w-full max-w-md shadow-xl relative text-center">
 
             {/* Close */}
             <button
               onClick={() => setOpen(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700"
+              className="absolute top-3 right-4 text-gray-400 hover:text-gray-700 text-xl"
             >
               ✕
             </button>
 
             {!success ? (
               <>
-                <h3 className="text-2xl font-bold text-primary">
-                  Thank you for showing interest!!
+                <h3 className="text-xl sm:text-2xl font-bold text-primary">
+                  Thank you for showing interest!
                 </h3>
 
-                <p className="mt-2 text-gray-600">
+                <p className="mt-2 text-sm sm:text-base text-gray-600">
                   Enter your email and we’ll reach out shortly.
                 </p>
 
@@ -78,8 +78,13 @@ export default function CTA() {
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-6 w-full border border-gray-300 rounded-lg px-4 py-3
-                             focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="
+                    mt-5 sm:mt-6 w-full
+                    border border-gray-300
+                    rounded-lg px-4 py-3
+                    text-sm sm:text-base
+                    focus:outline-none focus:ring-2 focus:ring-primary
+                  "
                 />
 
                 {error && (
@@ -97,11 +102,11 @@ export default function CTA() {
               </>
             ) : (
               /* SUCCESS STATE */
-              <div className="py-12">
-                <p className="text-primary text-xl font-semibold">
+              <div className="py-10 sm:py-12">
+                <p className="text-primary text-lg sm:text-xl font-semibold">
                   We’ll contact you soon.
                 </p>
-                </div>
+              </div>
             )}
           </div>
         </div>

@@ -31,7 +31,11 @@ export default function Features() {
   return (
     <section
       data-theme="dark"
-      className="py-32 px-8 bg-gradient-to-b from-[#0f3d2e] to-[#06281e]"
+      className="
+        py-20 sm:py-28 lg:py-32
+        px-4 sm:px-6 lg:px-8
+        bg-gradient-to-b from-[#0f3d2e] to-[#06281e]
+      "
     >
       <div className="max-w-6xl mx-auto">
         {/* HEADER */}
@@ -40,19 +44,25 @@ export default function Features() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-24"
+          className="text-center mb-16 sm:mb-20 lg:mb-24"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
             Built for Modern Restaurants
           </h2>
 
-          <p className="mt-6 text-lg text-white/70 mx-auto text-center lg:whitespace-nowrap">
-            A complete operating system for faster service, smarter decisions, and better guest experiences.
+          <p className="
+            mt-4 sm:mt-6
+            text-base sm:text-lg
+            text-white/70
+            max-w-2xl mx-auto
+          ">
+            A complete operating system for faster service, smarter decisions,
+            and better guest experiences.
           </p>
         </motion.div>
 
         {/* FEATURES GRID */}
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
+        <div className="grid gap-6 sm:gap-8 lg:gap-10 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
           {features.map((f, i) => (
             <motion.div
               key={i}
@@ -82,16 +92,24 @@ export default function Features() {
                 rotateX: 2,
                 rotateY: -2,
               }}
-              className="p-10 rounded-3xl bg-white shadow-xl h-full flex flex-col"
+              className="
+                p-6 sm:p-8 lg:p-10
+                rounded-3xl bg-white shadow-xl
+                h-full flex flex-col
+              "
               style={{ transformStyle: "preserve-3d" }}
             >
-              {/* FIXED TITLE HEIGHT FOR ALL */}
-              <h3 className="text-2xl font-semibold text-[#0f3d2e] min-h-[64px]">
+              {/* TITLE */}
+              <h3 className="
+                text-lg sm:text-xl lg:text-2xl
+                font-semibold text-[#0f3d2e]
+                min-h-[48px] sm:min-h-[56px] lg:min-h-[64px]
+              ">
                 {f.title}
               </h3>
 
-              {/* FLEX DESCRIPTION */}
-              <p className="mt-4 text-gray-600 flex-grow">
+              {/* DESCRIPTION */}
+              <p className="mt-3 sm:mt-4 text-sm sm:text-base text-gray-600 flex-grow">
                 {f.desc}
               </p>
             </motion.div>

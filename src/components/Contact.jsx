@@ -71,7 +71,7 @@ export default function Contact() {
   };
 
   const inputClass = (field) =>
-    `w-full border p-4 rounded-lg transition ${
+    `w-full border p-3 sm:p-4 rounded-lg text-sm sm:text-base transition ${
       errorField === field
         ? "border-red-500 animate-shake"
         : "border-gray-300 focus:border-[#0F3D2E]"
@@ -79,22 +79,23 @@ export default function Contact() {
 
   return (
     <>
-      <section data-theme="light" className="py-24 bg-white px-8">
+      <section
+        data-theme="light"
+        className="py-16 sm:py-20 lg:py-24 bg-white px-4 sm:px-6 lg:px-8"
+      >
         <div className="max-w-xl mx-auto">
-          <h2 className="text-4xl font-bold text-center text-gray-900">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900">
             Contact Us
           </h2>
 
-          <div className="mt-6 flex justify-center">
-            <p className="text-gray-600 text-center lg:whitespace-nowrap inline-block">
-              Have a question or need assistance? Fill out the form below and our
-              team will get back to you shortly.
-            </p>
-          </div>
+          <p className="mt-4 sm:mt-6 text-gray-600 text-center max-w-md mx-auto">
+            Have a question or need assistance? Fill out the form below and our
+            team will get back to you shortly.
+          </p>
 
-          <form onSubmit={handleSubmit} className="mt-10 grid gap-6">
+          <form onSubmit={handleSubmit} className="mt-8 sm:mt-10 grid gap-5 sm:gap-6">
             {/* NAME + PHONE */}
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
               <div className="relative">
                 <input
                   name="name"
@@ -103,9 +104,7 @@ export default function Contact() {
                   onChange={handleChange}
                   className={inputClass("name")}
                 />
-                {errorField === "name" && (
-                  <Tooltip message={errorMessage} />
-                )}
+                {errorField === "name" && <Tooltip message={errorMessage} />}
               </div>
 
               <div className="relative">
@@ -116,9 +115,7 @@ export default function Contact() {
                   onChange={handleChange}
                   className={inputClass("phone")}
                 />
-                {errorField === "phone" && (
-                  <Tooltip message={errorMessage} />
-                )}
+                {errorField === "phone" && <Tooltip message={errorMessage} />}
               </div>
             </div>
 
@@ -131,9 +128,7 @@ export default function Contact() {
                 onChange={handleChange}
                 className={inputClass("email")}
               />
-              {errorField === "email" && (
-                <Tooltip message={errorMessage} />
-              )}
+              {errorField === "email" && <Tooltip message={errorMessage} />}
             </div>
 
             {/* MESSAGE */}
@@ -146,14 +141,12 @@ export default function Contact() {
                 onChange={handleChange}
                 className={inputClass("message")}
               />
-              {errorField === "message" && (
-                <Tooltip message={errorMessage} />
-              )}
+              {errorField === "message" && <Tooltip message={errorMessage} />}
             </div>
 
             <button
               type="submit"
-              className="text-white py-4 rounded-lg text-lg transition"
+              className="text-white py-3 sm:py-4 rounded-lg text-base sm:text-lg transition"
               style={{ backgroundColor: "#0F3D2E" }}
               onMouseOver={(e) =>
                 (e.currentTarget.style.backgroundColor = "#0C3226")
@@ -186,9 +179,9 @@ export default function Contact() {
 
       {/* SUCCESS MODAL */}
       {showSuccessModal && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4">
           <div
-            className="rounded-2xl p-8 max-w-sm w-full text-center shadow-xl relative text-white"
+            className="rounded-2xl p-6 sm:p-8 max-w-sm w-full text-center shadow-xl relative text-white"
             style={{ backgroundColor: "#0F3D2E" }}
           >
             <button
@@ -200,8 +193,8 @@ export default function Contact() {
 
             <div className="flex justify-center mb-4">
               <svg
-                width="56"
-                height="56"
+                width="48"
+                height="48"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="white"
@@ -213,11 +206,11 @@ export default function Contact() {
               </svg>
             </div>
 
-            <h3 className="text-xl font-semibold">
+            <h3 className="text-lg sm:text-xl font-semibold">
               Submission Successful
             </h3>
 
-            <p className="mt-2 text-green-200">
+            <p className="mt-2 text-green-200 text-sm sm:text-base">
               Your query has been sent successfully. Our team will contact you
               shortly.
             </p>
@@ -226,12 +219,6 @@ export default function Contact() {
               onClick={() => setShowSuccessModal(false)}
               className="mt-6 bg-white px-6 py-3 rounded-lg font-semibold transition"
               style={{ color: "#0F3D2E" }}
-              onMouseOver={(e) =>
-                (e.currentTarget.style.backgroundColor = "#E6F2EE")
-              }
-              onMouseOut={(e) =>
-                (e.currentTarget.style.backgroundColor = "white")
-              }
             >
               Close
             </button>

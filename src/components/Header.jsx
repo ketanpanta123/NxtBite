@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 export default function Header() {
   const [invert, setInvert] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const sections = document.querySelectorAll("[data-theme]");
@@ -10,7 +11,6 @@ export default function Header() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // INVERT COLOR FOR CONTRAST
             setInvert(entry.target.dataset.theme === "light");
           }
         });
@@ -19,55 +19,44 @@ export default function Header() {
     );
 
     sections.forEach((section) => observer.observe(section));
-
     return () => observer.disconnect();
   }, []);
 
   const scrollTo = (id) => {
+    setOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300
-      ${
-        invert
-          ? "bg-green-900 text-white shadow-lg"
-          : "bg-white text-green-900 shadow-md"
-      }`}
+      ${invert ? "bg-green-900 text-white" : "bg-white text-green-900"}
+      shadow`}
     >
-      <div className="w-full px-6 py-4 flex items-center justify-between">
-        
+      {/* TOP BAR */}
+      <div className="px-4 sm:px-6 py-4 flex items-center justify-between">
         {/* LOGO */}
         <button
           onClick={() => scrollTo("home")}
-          className="text-2xl font-bold tracking-tight"
+          className="text-xl sm:text-2xl font-bold tracking-tight"
         >
           NxtBite
         </button>
 
-        {/* NAV */}
+        {/* DESKTOP NAV */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-          <button onClick={() => scrollTo("features")} className="hover:text-green-400 transition">
-            Features
-          </button>
-          <button onClick={() => scrollTo("pricing")} className="hover:text-green-400 transition">
-            Pricing
-          </button>
-          <button onClick={() => scrollTo("preview")} className="hover:text-green-400 transition">
-            Product
-          </button>
-          <button onClick={() => scrollTo("scroll")} className="hover:text-green-400 transition">
-            Flow
-          </button>
-          <button onClick={() => scrollTo("dashboards")} className="hover:text-green-400 transition">
-            Dashboards
-          </button>
-          <button onClick={() => scrollTo("contact")} className="hover:text-green-400 transition">
-            Contact
-          </button>
+          {["features", "pricing", "preview", "dashboards", "contact"].map(
+            (item) => (
+              <button
+                key={item}
+                onClick={() => scrollTo(item)}
+                className="hover:text-green-400 transition capitalize"
+              >
+                {item}
+              </button>
+            )
+          )}
 
-          {/* CTA */}
           <button
             onClick={() => scrollTo("cta")}
             className={`ml-2 px-5 py-2 rounded-full transition
@@ -80,7 +69,47 @@ export default function Header() {
             Get Started
           </button>
         </nav>
+
+        {/* MOBILE MENU BUTTON */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="md:hidden text-2xl focus:outline-none"
+        >
+          ☰
+        </button>
       </div>
+
+      {/* MOBILE MENU */}
+      {open && (
+        <div
+          className={`md:hidden px-4 pb-6 pt-2 space-y-4 text-sm font-medium
+          ${invert ? "bg-green-900 text-white" : "bg-white text-green-900"}`}
+        >
+          {["features", "pricing", "preview", "dashboards", "contact"].map(
+            (item) => (
+              <button
+                key={item}
+                onClick={() => scrollTo(item)}
+                className="block w-full text-left py-2 border-b border-gray-200/20 capitalize"
+              >
+                {item}
+              </button>
+            )
+          )}
+
+          <button
+            onClick={() => scrollTo("cta")}
+            className={`w-full mt-4 px-5 py-3 rounded-full font-semibold
+            ${
+              invert
+                ? "bg-white text-green-900"
+                : "bg-green-700 text-white"
+            }`}
+          >
+            Get Started
+          </button>
+        </div>
+      )}
     </header>
   );
 }
